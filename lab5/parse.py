@@ -203,10 +203,14 @@ class Remote_source(Data_source):
         return result
 
     def get_all_tables(self) -> [Competition]:
-        response = requests.get("https://lists.priem.etu.ru/public/competitions/2/1")
+        response = requests.get(
+            "https://lists.priem.etu.ru/public/competitions/2/1"
+        )
         data = json.loads(response.text)["data"]
 
-        competition_links = self.__filter_nested_objects(data["competition_groups"])
+        competition_links = self.__filter_nested_objects(
+            data["competition_groups"]
+        )
 
         loading_leng = len(competition_links)
         loading_cur = 0
@@ -229,7 +233,9 @@ class File_Outstream:
             store.values,
         )
 
-    def __export_to_csv(self, out_file_name: str, data_list: [Competition]) -> None:
+    def __export_to_csv(
+        self, out_file_name: str, data_list: [Competition]
+    ) -> None:
         with open(out_file_name, "w", newline="") as csvfile:
             fieldnames = [
                 "competition_code",
